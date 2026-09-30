@@ -1,20 +1,35 @@
-<div class="sidebar">
+<?php
+$currentPage = basename($_SERVER['PHP_SELF'] ?? '');
+$menuItems = [
+    ['label' => 'Dashboard', 'href' => 'dashboard.php', 'icon' => '⌂', 'pages' => ['dashboard.php']],
+    ['label' => 'Summary Pencapaian', 'href' => 'summary.php', 'icon' => '▥', 'pages' => ['summary.php', 'summary_download.php', 'summary_dwonload.php']],
+    ['label' => 'Library', 'href' => '#', 'icon' => '▤', 'pages' => []],
+    ['label' => 'Mapping Corporate', 'href' => '#', 'icon' => '⚑', 'pages' => []],
+    ['label' => 'Mapping', 'href' => 'index.php', 'icon' => '✣', 'pages' => ['index.php', 'proses.php', 'edit.php', 'hapus.php']],
+    ['label' => 'Laporan', 'href' => 'summary.php', 'icon' => '▧', 'pages' => []],
+    ['label' => 'Download Evidence', 'href' => '#', 'icon' => '☁', 'pages' => []],
+    ['label' => 'Dashboard Lama', 'href' => 'index.php', 'icon' => '▣', 'pages' => []],
+    ['label' => 'Initiative', 'href' => '#', 'icon' => '⚙', 'pages' => []],
+    ['label' => 'Realisasi', 'href' => '#', 'icon' => '▦', 'pages' => []],
+    ['label' => 'Waktu Pengisian', 'href' => '#', 'icon' => '◷', 'pages' => []],
+    ['label' => 'Pedoman OMTI', 'href' => '#', 'icon' => '▧', 'pages' => []],
+    ['label' => 'Konf. Perspective', 'href' => '#', 'icon' => '⚙', 'pages' => []],
+];
+?>
+<aside class="sidebar">
     <div class="logo-area">
-        <img src="assets/logo-peruri.png">
+        <img src="assets/logo-peruri.png" alt="Logo PERURI" onerror="this.style.display='none'">
+        <div class="logo-caption">CONTROLLER OMTI</div>
     </div>
-    <div class="menu">
-        <a class="active" href="dashboard.php">Dashboard</a>
-        <a href="summary.php">Summary Pencapaian</a>
-        <a href="#">Library</a>
-        <a href="#">Mapping Corporate</a>
-        <a href="#">Mapping</a>
-        <a href="index.php">Laporan</a>
-        <a href="#">Download Evidence</a>
-        <a href="#">Dashboard Lama</a>
-        <a href="#">Initiative</a>
-        <a href="#">Realisasi</a>
-        <a href="#">Waktu Pengisian</a>
-        <a href="#">Pedoman OMTI</a>
-        <a href="#">Konf. Perspective</a>
-    </div>
-</div>
+    <nav class="menu" aria-label="Navigasi utama">
+        <?php foreach ($menuItems as $item): ?>
+            <?php $active = in_array($currentPage, $item['pages'], true); ?>
+            <a href="<?= htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8') ?>"
+               class="<?= $active ? 'active' : '' ?>"
+               <?= $active ? 'aria-current="page"' : '' ?>>
+                <span class="menu-icon" aria-hidden="true"><?= htmlspecialchars($item['icon'], ENT_QUOTES, 'UTF-8') ?></span>
+                <span class="menu-label"><?= htmlspecialchars($item['label'], ENT_QUOTES, 'UTF-8') ?></span>
+            </a>
+        <?php endforeach; ?>
+    </nav>
+</aside>
